@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>   //для рандома
 #include <time.h>     //время тоже для рандома
-//замена max и последнего min значений
+//замена max и последнего отрицательного значений
 int main()
 {
 int M[40];
