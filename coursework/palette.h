@@ -3,7 +3,8 @@
 
 enum Palette                    //перечисление
 {
-    Board_pol = 1
+    Board_pol = 1,
+    Menu_palett
 };
 
 void InitPalette();             //прототип функции

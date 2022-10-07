@@ -1,10 +1,16 @@
 #ifndef GAME_H
 #define GAME_H
+
 #include "Board.h"
+#include "GameState.h"
+#include "Menu.h"
 
 struct Game                            //
 {
+    GameState state;                   //инициализация переменной state типа перечисления GameState?
+    GameSize gameSize;
     GameBoard * board;                 //переменная board типа указатель структуры GameBoard
+    Menu * menu;
 };
 
 Game * BuildingGame();                 //Функция возвращающая указатель типа Game

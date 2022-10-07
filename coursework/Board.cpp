@@ -2,11 +2,12 @@
 #include "Board.h"
 #include <curses.h>
 
-GameBoard * BuildBoard()                  //функция возвращающая указатель типа GameBoard
+GameBoard * BuildBoard(GameSize gameSize)                  //функция возвращающая указатель типа GameBoard
 {
     GameBoard * board = new GameBoard;    //выделение динамической памяти под GameBoard и определение на нее указателя *board
-    board -> height = 110;                //ширина игрового поля
-    board -> width = 30;                  //высота игрового поля
+    board -> gameSize = gameSize;
+    //board -> height = 110;                //ширина игрового поля
+    //board -> width = 30;                  //высота игрового поля
     return board;
 }
 
@@ -21,13 +22,24 @@ void PrintBoard(GameBoard * board)        //функция вывода поля
     {
         return;
     }
-    for (int i = 0; i < board -> width; ++ i)     //указатель на выстоу игрю поля
+    for (int i = 0; i < board -> gameSize.height; ++ i)     //указатель на выстоу игр. поля
     {
-        for (int j = 0; j < board -> height; ++ j)//указатель на ширину игрю поля
+        for (int j = 0; j < board -> gameSize.width; ++ j)//указатель на ширину игр. поля
         {
             move(i, j);                           //заполнение поля?
             chtype ch = '*' | COLOR_PAIR(Board_pol);//функционал из библиотеки
             addch(ch);                           //заполнение поля (функционал из библиотеки)
         }
     }
+}
+
+GameState RunBoard(GameBoard * gameBoard, GameBoard::BoardKey key)
+{
+    (void) gameBoard;
+    switch (key)
+    {
+        case GameBoard::ESC:
+        return MENU;
+    }
+    return BOARD;
 }
