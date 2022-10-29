@@ -1,10 +1,11 @@
 #include "palette.h"
 #include "Board.h"
+
 #include <curses.h>
 
 GameBoard * BuildBoard(GameSize gameSize)                  //функция возвращающая указатель типа GameBoard
 {
-    GameBoard * board = new GameBoard;    //выделение динамической памяти под GameBoard и определение на нее указателя *board
+    GameBoard * board = new GameBoard;      //выделение динамической памяти под GameBoard и определение на нее указателя *board
     board -> gameSize = gameSize;
     //board -> height = 110;                //ширина игрового поля
     //board -> width = 30;                  //высота игрового поля
@@ -22,15 +23,18 @@ void PrintBoard(GameBoard * board)        //функция вывода поля
     {
         return;
     }
+
+
+    attron(COLOR_PAIR(Board_pol));
     for (int i = 0; i < board -> gameSize.height; ++ i)     //указатель на выстоу игр. поля
     {
-        for (int j = 0; j < board -> gameSize.width; ++ j)//указатель на ширину игр. поля
+        for (int j = 0; j < board -> gameSize.width; ++ j)  //указатель на ширину игр. поля
         {
-            move(i, j);                           //заполнение поля?
-            chtype ch = '*' | COLOR_PAIR(Board_pol);//функционал из библиотеки
-            addch(ch);                           //заполнение поля (функционал из библиотеки)
+            move(i, j);                                     //заполнение поля?
+            addch(' ');                                     //заполнение поля (функционал из библиотеки)
         }
     }
+    //attroff(COLOR_PAIR(Board_pol));
 }
 
 GameState RunBoard(GameBoard * gameBoard, GameBoard::BoardKey key)
@@ -38,7 +42,7 @@ GameState RunBoard(GameBoard * gameBoard, GameBoard::BoardKey key)
     (void) gameBoard;
     switch (key)
     {
-        case GameBoard::ESC:
+        case GameBoard::ESC:          //выхрд из игры
         return MENU;
     }
     return BOARD;

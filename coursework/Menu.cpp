@@ -7,7 +7,7 @@ Menu * BuildingMenu(GameSize gameSize)                  //
     Menu * menu = new Menu;
     menu -> gameSize = gameSize;
     menu -> menuString[Menu::STAET_GAME] = "START";          //обращение через расширенную область видимости к полю перечисления в структуре
-    menu -> menuString[Menu::TABLE_RECORD] = "TABLE RECORDS";
+    menu -> menuString[Menu::TABLE_RECORD] = "TABLE RECORDS";// массив?
     menu -> menuString[Menu::EXIT] = "EXIT";
     menu -> currentPoint = Menu::FirstPoint;                       //местоположение курсора
     return menu;
@@ -15,8 +15,9 @@ Menu * BuildingMenu(GameSize gameSize)                  //
 
 void DestroyMenu(Menu * menu)          //
 {
-
+    delete menu;
 }
+
 void PrintMenu(Menu * menu)            //
 {
     if (!menu)
@@ -24,25 +25,25 @@ void PrintMenu(Menu * menu)            //
             return;
         }
 
-    attron(COLOR_PAIR(Menu_palett));   //включение атрибутов?
+    attron(COLOR_PAIR(Menu_palett));                      //включение атрибутов?
 
     for (int i = 0; i < menu ->gameSize.height; ++ i)     //указатель на выстоу игр. поля
     {
-        for (int j = 0; j < menu -> gameSize.width; ++ j)//указатель на ширину игр. поля
+        for (int j = 0; j < menu -> gameSize.width; ++ j) //указатель на ширину игр. поля
         {
-            move(i, j);                           //заполнение поля?
-            addch(' ');                           //заполнение поля (функционал из библиотеки)
+            move(i, j);                                   //заполнение поля?
+            addch(' ');                                   //заполнение поля (функционал из библиотеки)
         }
     }
 
     for (int i = 0; i < Menu::COUNT; ++ i)
     {
-        mvprintw(10 + i, 55, "%s", menu -> menuString[i]);     //вывыодит строку на экран
+        mvprintw(13 + i, 55, "%s", menu -> menuString[i]);     //вывыодит строку на экран
     }
-    move(menu -> currentPoint, 54);                            //выравнивание по ширине, а как по высоте?
+    move(menu -> currentPoint, 54);                            //выравнивание по ширине
     addch('>');
 
-    attroff(COLOR_PAIR(Menu_palett));   //отключение атрибутов?
+    attroff(COLOR_PAIR(Menu_palett));                          //отключение атрибутов?
 }
 
 GameState RunMenu(Menu * menu, Menu::MenuKey key)
@@ -69,7 +70,7 @@ GameState RunMenu(Menu * menu, Menu::MenuKey key)
             return BOARD;
             case Menu::TABLE_RECORD:
             return MENU;
-            case Menu::EXIT:
+            case 15:
             return EXIT;
             default :
             break;
